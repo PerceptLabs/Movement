@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movement - Make Your Voice Heard</title>
+    <meta name="description" content="Join campaigns and contact your representatives in minutes. Real action, real impact.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo" onclick="showHome()">
+                    <span class="logo-icon">✊</span>
+                    <span class="logo-text">Movement</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#" onclick="showHome()">Home</a>
+                    <a href="#" onclick="showCreateCampaign()" class="btn-primary">Start a Campaign</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Your Voice.<br>
+                        Your Reps.<br>
+                        <span class="gradient-text">Your Impact.</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Join thousands making real change. Contact your representatives in 2 minutes.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="total-actions">12,547</div>
+                            <div class="stat-label">Actions Taken</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="total-campaigns">234</div>
+                            <div class="stat-label">Active Campaigns</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="total-reps">1,893</div>
+                            <div class="stat-label">Reps Contacted</div>
+                        </div>
+                    </div>
+                    <button class="btn-hero" onclick="scrollToCampaigns()">
+                        Browse Campaigns
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Find a Campaign</h3>
+                        <p>Browse issues you care about or start your own</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Enter Your Info</h3>
+                        <p>We'll find your representatives automatically</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Take Action</h3>
+                        <p>Send your message in one click - we make it easy</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Share & Track</h3>
+                        <p>Watch the impact grow as others join</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Campaigns -->
+        <section class="campaigns-section" id="campaigns-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Trending Campaigns</h2>
+                    <button class="btn-secondary" onclick="showCreateCampaign()">
+                        + Start Your Own
+                    </button>
+                </div>
+                <div class="campaigns-grid" id="campaigns-grid">
+                    <!-- Campaigns will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Create Campaign Page -->
+    <div id="create-page" class="page">
+        <div class="container">
+            <div class="form-container">
+                <button class="back-button" onclick="showHome()">← Back</button>
+                <h1 class="page-title">Start a Campaign</h1>
+                <p class="page-subtitle">Create a campaign to rally people around your issue</p>
+
+                <form id="create-campaign-form" onsubmit="createCampaign(event)">
+                    <div class="form-group">
+                        <label for="campaign-title">Campaign Title *</label>
+                        <input
+                            type="text"
+                            id="campaign-title"
+                            placeholder="e.g., Fund Universal Pre-K in Our State"
+                            required
+                            maxlength="100">
+                        <small>Keep it clear and action-oriented</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign-category">Category *</label>
+                        <select id="campaign-category" required>
+                            <option value="">Select a category</option>
+                            <option value="education">Education</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="environment">Environment</option>
+                            <option value="economy">Economy & Jobs</option>
+                            <option value="justice">Criminal Justice</option>
+                            <option value="housing">Housing</option>
+                            <option value="infrastructure">Infrastructure</option>
+                            <option value="civil-rights">Civil Rights</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign-description">Why This Matters *</label>
+                        <textarea
+                            id="campaign-description"
+                            rows="6"
+                            placeholder="Explain why this issue is important and what change you're seeking..."
+                            required
+                            maxlength="1000"></textarea>
+                        <small><span id="desc-count">0</span>/1000 characters</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign-message">Message Template *</label>
+                        <textarea
+                            id="campaign-message"
+                            rows="8"
+                            placeholder="Write the message people will send to their representatives. Make it personal and specific..."
+                            required
+                            maxlength="2000"></textarea>
+                        <small>This will be pre-filled but users can customize it</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign-target">Target Level *</label>
+                        <select id="campaign-target" required>
+                            <option value="">Who should people contact?</option>
+                            <option value="federal">Federal (Senators & House Rep)</option>
+                            <option value="state">State Legislature</option>
+                            <option value="local">Local Government</option>
+                            <option value="all">All Levels</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="showHome()">Cancel</button>
+                        <button type="submit" class="btn-primary">Launch Campaign</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campaign Detail/Action Page -->
+    <div id="campaign-page" class="page">
+        <div class="container">
+            <div class="campaign-detail">
+                <button class="back-button" onclick="showHome()">← Back to Campaigns</button>
+
+                <div class="campaign-header">
+                    <div class="campaign-category-badge" id="detail-category"></div>
+                    <h1 class="campaign-title" id="detail-title"></h1>
+                    <div class="campaign-meta">
+                        <span id="detail-date"></span>
+                        <span class="meta-divider">•</span>
+                        <span id="detail-target"></span>
+                    </div>
+                </div>
+
+                <div class="campaign-stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-big" id="detail-actions">0</div>
+                        <div class="stat-label-small">people took action</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-big" id="detail-goal">1,000</div>
+                        <div class="stat-label-small">goal</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="detail-progress"></div>
+                </div>
+
+                <div class="two-column-layout">
+                    <div class="campaign-content">
+                        <h2>Why This Matters</h2>
+                        <div class="campaign-description" id="detail-description"></div>
+
+                        <div class="share-section">
+                            <h3>Share This Campaign</h3>
+                            <div class="share-buttons">
+                                <button class="share-btn" onclick="shareOnTwitter()">
+                                    <span class="share-icon">🐦</span> Twitter
+                                </button>
+                                <button class="share-btn" onclick="shareOnFacebook()">
+                                    <span class="share-icon">📘</span> Facebook
+                                </button>
+                                <button class="share-btn" onclick="copyLink()">
+                                    <span class="share-icon">🔗</span> Copy Link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-sidebar">
+                        <div class="action-card" id="action-card">
+                            <h2>Take Action Now</h2>
+                            <p>Contact your representatives in 2 minutes</p>
+
+                            <form id="action-form" onsubmit="takeAction(event)">
+                                <div class="form-group">
+                                    <label for="user-name">Your Name *</label>
+                                    <input type="text" id="user-name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user-email">Email *</label>
+                                    <input type="email" id="user-email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user-zip">ZIP Code *</label>
+                                    <input
+                                        type="text"
+                                        id="user-zip"
+                                        required
+                                        pattern="[0-9]{5}"
+                                        placeholder="12345">
+                                    <small>We'll find your representatives</small>
+                                </div>
+
+                                <div class="form-group" id="message-group" style="display: none;">
+                                    <label for="user-message">Your Message</label>
+                                    <textarea
+                                        id="user-message"
+                                        rows="8"
+                                        placeholder="Customize your message..."></textarea>
+                                    <small>Feel free to personalize this message</small>
+                                </div>
+
+                                <div id="reps-found" style="display: none;">
+                                    <div class="reps-list" id="reps-list"></div>
+                                </div>
+
+                                <button type="submit" class="btn-primary btn-block" id="action-btn">
+                                    Find My Representatives
+                                </button>
+                            </form>
+
+                            <div id="success-message" style="display: none;" class="success-message">
+                                <div class="success-icon">✓</div>
+                                <h3>Action Taken!</h3>
+                                <p>Your voice has been heard. Share this campaign to multiply your impact.</p>
+                                <button class="btn-primary btn-block" onclick="shareAfterAction()">
+                                    Share Campaign
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Movement. Empowering civic engagement.</p>
+            <p class="footer-note">Note: This is a demonstration platform. For production use, integrate with official representative contact systems.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
