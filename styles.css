@@ -6,17 +6,19 @@
 }
 
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #ec4899;
-    --success: #10b981;
-    --text-dark: #111827;
-    --text-gray: #6b7280;
-    --text-light: #9ca3af;
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --secondary: #f97316;
+    --accent: #8b5cf6;
+    --success: #22c55e;
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+    --text-light: #94a3b8;
     --bg-white: #ffffff;
-    --bg-gray: #f9fafb;
-    --bg-dark: #111827;
-    --border: #e5e7eb;
+    --bg-gray: #f8fafc;
+    --bg-light: #f1f5f9;
+    --bg-dark: #0f172a;
+    --border: #e2e8f0;
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
@@ -186,7 +188,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #8b5cf6 100%);
     color: white;
     padding: 100px 0 120px;
     position: relative;
@@ -220,7 +222,7 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    background: linear-gradient(135deg, #fbbf24, #f97316);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -291,7 +293,7 @@ body {
 .step-number {
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     border-radius: 50%;
     display: flex;
@@ -300,6 +302,22 @@ body {
     font-size: 32px;
     font-weight: 800;
     margin: 0 auto 24px;
+    box-shadow: 0 4px 12px -2px rgb(14 165 233 / 0.4);
+}
+
+.step:nth-child(2) .step-number {
+    background: linear-gradient(135deg, var(--secondary), #ea580c);
+    box-shadow: 0 4px 12px -2px rgb(249 115 22 / 0.4);
+}
+
+.step:nth-child(3) .step-number {
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    box-shadow: 0 4px 12px -2px rgb(139 92 246 / 0.4);
+}
+
+.step:nth-child(4) .step-number {
+    background: linear-gradient(135deg, var(--success), #16a34a);
+    box-shadow: 0 4px 12px -2px rgb(34 197 94 / 0.4);
 }
 
 .step h3 {
@@ -340,12 +358,28 @@ body {
     padding: 24px;
     transition: all 0.3s;
     cursor: pointer;
+    position: relative;
+}
+
+.campaign-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
 }
 
 .campaign-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
+    box-shadow: 0 12px 24px -4px rgb(14 165 233 / 0.2);
+    border-color: transparent;
+}
+
+.campaign-card:hover::before {
+    opacity: 1;
 }
 
 .campaign-card-header {
@@ -621,10 +655,10 @@ body {
     position: sticky;
     top: 100px;
     background: var(--bg-white);
-    border: 2px solid var(--primary);
+    border: 3px solid var(--primary);
     border-radius: var(--radius);
     padding: 32px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 12px 24px -4px rgb(14 165 233 / 0.2);
 }
 
 .action-card h2 {
@@ -671,7 +705,7 @@ body {
 .success-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--success), #059669);
+    background: linear-gradient(135deg, var(--success), #16a34a);
     color: white;
     border-radius: 50%;
     display: flex;
