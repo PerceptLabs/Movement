@@ -108,7 +108,7 @@ body {
 
 /* Buttons */
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
     color: white;
     border: none;
     padding: 12px 24px;
@@ -121,6 +121,7 @@ body {
 }
 
 .btn-primary:hover {
+    background: var(--primary-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
@@ -138,12 +139,12 @@ body {
 }
 
 .btn-secondary:hover {
+    background: var(--bg-gray);
     border-color: var(--primary);
-    color: var(--primary);
 }
 
 .btn-hero {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--primary);
     color: white;
     border: none;
     padding: 18px 36px;
@@ -570,6 +571,25 @@ body {
 .stat-label-small {
     color: var(--text-gray);
     font-size: 14px;
+}
+
+.hot-badge {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f97316, #dc2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .progress-bar {

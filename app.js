@@ -21,7 +21,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing to urge you to support funding for universal Pre-K in our state. Research consistently shows that early childhood education is one of the best investments we can make in our children\'s future and our economy.\n\nUniversal Pre-K would:\n- Give every child a strong start\n- Support working families\n- Reduce long-term education costs\n- Boost our state\'s economy\n\nI urge you to prioritize this issue and vote yes on universal Pre-K funding.\n\nThank you for your consideration.',
             target: 'state',
             actions: 1247,
-            goal: 2500,
+            recentActions: 23,
             created: '2025-10-15'
         },
         {
@@ -32,7 +32,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing to ask for your support in expanding broadband infrastructure to underserved rural areas. The digital divide is real and growing, leaving rural communities behind.\n\nReliable internet access is essential for:\n- Remote work and economic opportunity\n- Online education and telehealth\n- Small business growth\n- Emergency services\n\nPlease support legislation that funds rural broadband expansion and ensures every American has access to high-speed internet.\n\nThank you.',
             target: 'federal',
             actions: 3421,
-            goal: 5000,
+            recentActions: 187,
             created: '2025-10-20'
         },
         {
@@ -43,7 +43,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing to express my strong opposition to plans that would reduce our local green spaces and parks for commercial development.\n\nThese spaces are vital because they:\n- Provide clean air and improve public health\n- Offer recreational opportunities for all residents\n- Support local wildlife and biodiversity\n- Strengthen community bonds\n\nI urge you to oppose any measures that would compromise our green spaces and instead support their expansion and protection.\n\nThank you for representing our community\'s interests.',
             target: 'local',
             actions: 892,
-            goal: 1000,
+            recentActions: 5,
             created: '2025-10-25'
         },
         {
@@ -54,7 +54,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing to urge you to increase funding for mental health services in our schools. The mental health crisis among young people is well-documented, but our schools lack the resources to provide adequate support.\n\nWe need:\n- More school counselors and social workers\n- Mental health screening and early intervention programs\n- Training for teachers to recognize warning signs\n- Reduced stigma around seeking help\n\nOur children\'s wellbeing must be a top priority. Please support increased funding for school mental health services.\n\nThank you.',
             target: 'state',
             actions: 2156,
-            goal: 3000,
+            recentActions: 89,
             created: '2025-10-28'
         },
         {
@@ -65,7 +65,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing about the urgent housing affordability crisis in our community. Too many families are struggling to keep a roof over their heads as rents and home prices become increasingly unaffordable.\n\nWe need action on:\n- Rent stabilization and tenant protections\n- Funding for affordable housing construction\n- Zoning reform to allow more housing\n- First-time homebuyer assistance programs\n\nHousing is a human right. Please prioritize policies that make housing affordable for all residents.\n\nThank you.',
             target: 'all',
             actions: 4782,
-            goal: 5000,
+            recentActions: 312,
             created: '2025-10-30'
         },
         {
@@ -76,7 +76,7 @@ function getDefaultCampaigns() {
             message: 'Dear Representative,\n\nI am writing to urge you to support increased funding for teacher salaries. Our state is experiencing a teacher shortage, and low pay is a major factor driving educators out of the profession.\n\nCompetitive teacher salaries will:\n- Attract talented individuals to teaching\n- Reduce turnover and improve student outcomes\n- Show we value education\n- Ensure every classroom has a qualified teacher\n\nOur children deserve the best teachers, and teachers deserve compensation that reflects their vital role in society.\n\nThank you for your consideration.',
             target: 'state',
             actions: 1834,
-            goal: 3000,
+            recentActions: 42,
             created: '2025-11-01'
         }
     ];
@@ -127,10 +127,11 @@ function showCampaign(campaignId) {
     document.getElementById('detail-target').textContent = getTargetLabel(currentCampaign.target);
     document.getElementById('detail-description').textContent = currentCampaign.description;
     document.getElementById('detail-actions').textContent = currentCampaign.actions.toLocaleString();
-    document.getElementById('detail-goal').textContent = currentCampaign.goal.toLocaleString();
+    document.getElementById('detail-recent').textContent = (currentCampaign.recentActions || 0).toLocaleString();
 
-    const progress = (currentCampaign.actions / currentCampaign.goal) * 100;
-    document.getElementById('detail-progress').style.width = `${Math.min(progress, 100)}%`;
+    // Show hot badge if recent activity is high (more than 50 in last 24 hours)
+    const isHot = (currentCampaign.recentActions || 0) >= 50;
+    document.getElementById('detail-hot-container').style.display = isHot ? 'block' : 'none';
 
     // Reset action form
     document.getElementById('action-form').style.display = 'block';
@@ -167,22 +168,24 @@ function createCampaignCard(campaign) {
     card.className = 'campaign-card';
     card.onclick = () => showCampaign(campaign.id);
 
-    const progress = (campaign.actions / campaign.goal) * 100;
+    const isHot = (campaign.recentActions || 0) >= 50;
+    const hotBadge = isHot ? '<span style="margin-left: auto; font-size: 20px;">🔥</span>' : '';
 
     card.innerHTML = `
         <div class="campaign-card-header">
             <div class="campaign-category-badge">${campaign.category}</div>
+            ${hotBadge}
         </div>
         <h3 class="campaign-card-title">${campaign.title}</h3>
         <p class="campaign-card-description">${campaign.description}</p>
         <div class="campaign-card-stats">
             <div class="campaign-stat">
                 <span class="campaign-stat-number">${campaign.actions.toLocaleString()}</span>
-                <span>actions</span>
+                <span>total</span>
             </div>
             <div class="campaign-stat">
-                <span>${Math.round(progress)}%</span>
-                <span>of goal</span>
+                <span class="campaign-stat-number">${(campaign.recentActions || 0).toLocaleString()}</span>
+                <span>last 24hrs</span>
             </div>
         </div>
     `;
@@ -234,7 +237,7 @@ function createCampaign(event) {
         message: document.getElementById('campaign-message').value,
         target: document.getElementById('campaign-target').value,
         actions: 0,
-        goal: 1000,
+        recentActions: 0,
         created: new Date().toISOString().split('T')[0]
     };
 
@@ -320,14 +323,18 @@ function sendMessage(name, email, zip) {
     // Simulate sending message
     // In production, this would integrate with official contact systems
 
-    // Update campaign action count
+    // Update campaign action counts
     currentCampaign.actions++;
+    currentCampaign.recentActions = (currentCampaign.recentActions || 0) + 1;
     saveCampaigns();
 
     // Update display
     document.getElementById('detail-actions').textContent = currentCampaign.actions.toLocaleString();
-    const progress = (currentCampaign.actions / currentCampaign.goal) * 100;
-    document.getElementById('detail-progress').style.width = `${Math.min(progress, 100)}%`;
+    document.getElementById('detail-recent').textContent = currentCampaign.recentActions.toLocaleString();
+
+    // Update hot badge
+    const isHot = currentCampaign.recentActions >= 50;
+    document.getElementById('detail-hot-container').style.display = isHot ? 'block' : 'none';
 
     // Show success message
     document.getElementById('action-form').style.display = 'none';
@@ -395,7 +402,9 @@ function formatNumber(num) {
 function simulateActivity() {
     campaigns.forEach(campaign => {
         if (Math.random() > 0.7) {
-            campaign.actions += Math.floor(Math.random() * 5) + 1;
+            const newActions = Math.floor(Math.random() * 5) + 1;
+            campaign.actions += newActions;
+            campaign.recentActions = (campaign.recentActions || 0) + newActions;
         }
     });
     saveCampaigns();
