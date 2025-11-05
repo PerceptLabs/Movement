@@ -8,15 +8,14 @@
 :root {
     --primary: #0ea5e9;
     --primary-dark: #0284c7;
+    --primary-light: #7dd3fc;
     --secondary: #f97316;
-    --accent: #8b5cf6;
     --success: #22c55e;
     --text-dark: #1e293b;
     --text-gray: #64748b;
     --text-light: #94a3b8;
     --bg-white: #ffffff;
     --bg-gray: #f8fafc;
-    --bg-light: #f1f5f9;
     --bg-dark: #0f172a;
     --border: #e2e8f0;
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -76,17 +75,11 @@ body {
 
 .logo-icon {
     font-size: 28px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .logo-text {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-dark);
 }
 
 .nav-links {
@@ -189,7 +182,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #8b5cf6 100%);
+    background: var(--primary);
     color: white;
     padding: 100px 0 120px;
     position: relative;
@@ -223,10 +216,11 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #fbbf24, #f97316);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
 }
 
 .hero-subtitle {
@@ -294,7 +288,7 @@ body {
 .step-number {
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: var(--primary);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -303,22 +297,7 @@ body {
     font-size: 32px;
     font-weight: 800;
     margin: 0 auto 24px;
-    box-shadow: 0 4px 12px -2px rgb(14 165 233 / 0.4);
-}
-
-.step:nth-child(2) .step-number {
-    background: linear-gradient(135deg, var(--secondary), #ea580c);
-    box-shadow: 0 4px 12px -2px rgb(249 115 22 / 0.4);
-}
-
-.step:nth-child(3) .step-number {
-    background: linear-gradient(135deg, var(--accent), #7c3aed);
-    box-shadow: 0 4px 12px -2px rgb(139 92 246 / 0.4);
-}
-
-.step:nth-child(4) .step-number {
-    background: linear-gradient(135deg, var(--success), #16a34a);
-    box-shadow: 0 4px 12px -2px rgb(34 197 94 / 0.4);
+    box-shadow: var(--shadow-md);
 }
 
 .step h3 {
@@ -359,28 +338,12 @@ body {
     padding: 24px;
     transition: all 0.3s;
     cursor: pointer;
-    position: relative;
-}
-
-.campaign-card::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: -1;
 }
 
 .campaign-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px -4px rgb(14 165 233 / 0.2);
-    border-color: transparent;
-}
-
-.campaign-card:hover::before {
-    opacity: 1;
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
 }
 
 .campaign-card-header {
@@ -393,7 +356,7 @@ body {
 .campaign-category-badge {
     display: inline-block;
     padding: 6px 12px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--primary);
     color: white;
     border-radius: 20px;
     font-size: 12px;
@@ -576,10 +539,7 @@ body {
 .hot-badge {
     font-size: 32px;
     font-weight: 800;
-    background: linear-gradient(135deg, #f97316, #dc2626);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--secondary);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -603,7 +563,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    background: var(--primary);
     border-radius: 12px;
     transition: width 0.5s;
 }
@@ -725,7 +685,7 @@ body {
 .success-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--success), #16a34a);
+    background: var(--success);
     color: white;
     border-radius: 50%;
     display: flex;
