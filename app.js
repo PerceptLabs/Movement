@@ -150,6 +150,8 @@ function scrollToCampaigns() {
 }
 
 // ===== Display Functions =====
+let currentFilter = 'all';
+
 function displayCampaigns() {
     const grid = document.getElementById('campaigns-grid');
     grid.innerHTML = '';
@@ -163,13 +165,49 @@ function displayCampaigns() {
     });
 }
 
+function filterCampaigns(filter) {
+    currentFilter = filter;
+
+    // Update active tab
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    const grid = document.getElementById('campaigns-grid');
+    grid.innerHTML = '';
+
+    let filtered = [...campaigns];
+
+    // Apply filter
+    switch(filter) {
+        case 'hot':
+            filtered = filtered.filter(c => (c.recentActions || 0) >= 50);
+            filtered.sort((a, b) => b.recentActions - a.recentActions);
+            break;
+        case 'newest':
+            filtered.sort((a, b) => new Date(b.created) - new Date(a.created));
+            break;
+        case 'most-active':
+            filtered.sort((a, b) => b.actions - a.actions);
+            break;
+        default: // 'all'
+            filtered.sort((a, b) => b.actions - a.actions);
+    }
+
+    filtered.forEach(campaign => {
+        const card = createCampaignCard(campaign);
+        grid.appendChild(card);
+    });
+}
+
 function createCampaignCard(campaign) {
     const card = document.createElement('div');
     card.className = 'campaign-card';
     card.onclick = () => showCampaign(campaign.id);
 
     const isHot = (campaign.recentActions || 0) >= 50;
-    const hotBadge = isHot ? '<span style="margin-left: auto; font-size: 20px;">🔥</span>' : '';
+    const hotBadge = isHot ? '<div class="hot-badge"><span>🔥</span> HOT</div>' : '';
 
     card.innerHTML = `
         <div class="campaign-card-header">

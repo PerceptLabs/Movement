@@ -6,31 +6,31 @@
 }
 
 :root {
-    --primary: #0ea5e9;
-    --primary-dark: #0284c7;
-    --primary-light: #7dd3fc;
-    --secondary: #f97316;
+    --primary: #1337ec;
+    --primary-dark: #0f2bbd;
+    --primary-light: #4d68f5;
+    --secondary: #f03a3a;
     --success: #22c55e;
     --text-dark: #1e293b;
     --text-gray: #64748b;
     --text-light: #94a3b8;
     --bg-white: #ffffff;
-    --bg-gray: #f8fafc;
+    --bg-gray: #f9fafb;
     --bg-dark: #0f172a;
-    --border: #e2e8f0;
+    --border: #e5e7eb;
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-    --radius: 12px;
-    --radius-sm: 8px;
+    --radius: 16px;
+    --radius-sm: 12px;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--text-dark);
     line-height: 1.6;
-    background: var(--bg-white);
+    background: var(--bg-gray);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -47,8 +47,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.95);
 }
 
 .nav-content {
@@ -252,10 +250,45 @@ body {
     opacity: 0.9;
 }
 
+/* Stats Section */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 64px;
+}
+
+.stat-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+}
+
+.stat-card-label {
+    color: var(--text-gray);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.stat-card-value {
+    color: var(--text-dark);
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-card-change {
+    color: var(--success);
+    font-size: 14px;
+    font-weight: 600;
+}
+
 /* How It Works */
 .how-it-works {
     padding: 100px 0;
-    background: var(--bg-gray);
+    background: var(--bg-white);
 }
 
 .section-title {
@@ -320,9 +353,42 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
     gap: 24px;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.filter-tab {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    color: var(--text-gray);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.filter-tab:hover {
+    border-color: var(--primary);
+    color: var(--text-dark);
+}
+
+.filter-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
 }
 
 .campaigns-grid {
@@ -333,16 +399,16 @@ body {
 
 .campaign-card {
     background: var(--bg-white);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     padding: 24px;
-    transition: all 0.3s;
+    transition: all 0.2s;
     cursor: pointer;
 }
 
 .campaign-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
     border-color: var(--primary);
 }
 
@@ -355,13 +421,14 @@ body {
 
 .campaign-category-badge {
     display: inline-block;
-    padding: 6px 12px;
-    background: var(--primary);
-    color: white;
+    padding: 4px 12px;
+    background: rgba(19, 55, 236, 0.1);
+    color: var(--primary);
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .campaign-card-title {
@@ -537,10 +604,21 @@ body {
 }
 
 .hot-badge {
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 11px;
+    font-weight: 700;
     color: var(--secondary);
-    animation: pulse 2s ease-in-out infinite;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(240, 58, 58, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hot-badge span {
+    font-size: 14px;
 }
 
 @keyframes pulse {
