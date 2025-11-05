@@ -22,6 +22,7 @@ function getDefaultCampaigns() {
             target: 'state',
             actions: 1247,
             recentActions: 23,
+            shares: 412,
             created: '2025-10-15'
         },
         {
@@ -33,6 +34,7 @@ function getDefaultCampaigns() {
             target: 'federal',
             actions: 3421,
             recentActions: 187,
+            shares: 1523,
             created: '2025-10-20'
         },
         {
@@ -44,6 +46,7 @@ function getDefaultCampaigns() {
             target: 'local',
             actions: 892,
             recentActions: 5,
+            shares: 201,
             created: '2025-10-25'
         },
         {
@@ -55,6 +58,7 @@ function getDefaultCampaigns() {
             target: 'state',
             actions: 2156,
             recentActions: 89,
+            shares: 876,
             created: '2025-10-28'
         },
         {
@@ -66,6 +70,7 @@ function getDefaultCampaigns() {
             target: 'all',
             actions: 4782,
             recentActions: 312,
+            shares: 2145,
             created: '2025-10-30'
         },
         {
@@ -77,6 +82,7 @@ function getDefaultCampaigns() {
             target: 'state',
             actions: 1834,
             recentActions: 42,
+            shares: 634,
             created: '2025-11-01'
         }
     ];
@@ -123,15 +129,17 @@ function showCampaign(campaignId) {
     // Populate campaign details
     document.getElementById('detail-category').textContent = currentCampaign.category;
     document.getElementById('detail-title').textContent = currentCampaign.title;
-    document.getElementById('detail-date').textContent = new Date(currentCampaign.created).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    document.getElementById('detail-target').textContent = getTargetLabel(currentCampaign.target);
     document.getElementById('detail-description').textContent = currentCampaign.description;
     document.getElementById('detail-actions').textContent = currentCampaign.actions.toLocaleString();
     document.getElementById('detail-recent').textContent = (currentCampaign.recentActions || 0).toLocaleString();
+    document.getElementById('detail-shares').textContent = (currentCampaign.shares || 0).toLocaleString();
 
     // Show hot badge if recent activity is high (more than 50 in last 24 hours)
     const isHot = (currentCampaign.recentActions || 0) >= 50;
-    document.getElementById('detail-hot-container').style.display = isHot ? 'block' : 'none';
+    document.getElementById('detail-hot-badge').style.display = isHot ? 'flex' : 'none';
+
+    // Set hero image (placeholder for now)
+    document.getElementById('detail-hero').style.backgroundImage = `linear-gradient(135deg, ${getRandomGradient()})`;
 
     // Reset action form
     document.getElementById('action-form').style.display = 'block';
@@ -141,8 +149,21 @@ function showCampaign(campaignId) {
     document.getElementById('reps-found').style.display = 'none';
     document.getElementById('action-btn').textContent = 'Find My Representatives';
     document.getElementById('user-message').value = currentCampaign.message;
+    document.getElementById('contact-modal').style.display = 'none';
 
     window.scrollTo(0, 0);
+}
+
+function getRandomGradient() {
+    const gradients = [
+        '#667eea, #764ba2',
+        '#f093fb, #f5576c',
+        '#4facfe, #00f2fe',
+        '#43e97b, #38f9d7',
+        '#fa709a, #fee140',
+        '#30cfd0, #330867'
+    ];
+    return gradients[Math.floor(Math.random() * gradients.length)];
 }
 
 function scrollToCampaigns() {
@@ -276,6 +297,7 @@ function createCampaign(event) {
         target: document.getElementById('campaign-target').value,
         actions: 0,
         recentActions: 0,
+        shares: 0,
         created: new Date().toISOString().split('T')[0]
     };
 
@@ -421,6 +443,28 @@ function copyLink() {
 }
 
 function shareAfterAction() {
+    closeContactModal();
+    shareCurrentCampaign();
+}
+
+// ===== Modal Functions =====
+function startContactFlow() {
+    document.getElementById('contact-modal').style.display = 'flex';
+}
+
+function closeContactModal() {
+    document.getElementById('contact-modal').style.display = 'none';
+}
+
+function shareCurrentCampaign() {
+    if (!currentCampaign) return;
+
+    // Increment shares
+    currentCampaign.shares = (currentCampaign.shares || 0) + 1;
+    saveCampaigns();
+    document.getElementById('detail-shares').textContent = currentCampaign.shares.toLocaleString();
+
+    // Share on Twitter
     shareOnTwitter();
 }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movement - Make Your Voice Heard</title>
+    <title>MassMove - Make Your Voice Heard</title>
     <meta name="description" content="Join campaigns and contact your representatives in minutes. Real action, real impact.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
             <div class="nav-content">
                 <a href="#" class="logo" onclick="showHome()">
                     <span class="logo-icon">✊</span>
-                    <span class="logo-text">Movement</span>
+                    <span class="logo-text">MassMove</span>
                 </a>
                 <div class="nav-links">
                     <a href="#" onclick="showHome()">Home</a>
@@ -198,107 +198,106 @@
             <div class="campaign-detail">
                 <button class="back-button" onclick="showHome()">← Back to Campaigns</button>
 
-                <div class="campaign-header">
-                    <div class="campaign-category-badge" id="detail-category"></div>
-                    <h1 class="campaign-title" id="detail-title"></h1>
-                    <div class="campaign-meta">
-                        <span id="detail-date"></span>
-                        <span class="meta-divider">•</span>
-                        <span id="detail-target"></span>
-                    </div>
-                </div>
-
-                <div class="campaign-stats-bar">
-                    <div class="stat-item">
-                        <div class="stat-big" id="detail-actions">0</div>
-                        <div class="stat-label-small">total contacts</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-big" id="detail-recent">0</div>
-                        <div class="stat-label-small">last 24 hours</div>
-                    </div>
-                    <div class="stat-item" id="detail-hot-container" style="display: none;">
-                        <div class="hot-badge">🔥 HOT</div>
-                        <div class="stat-label-small">trending now</div>
-                    </div>
-                </div>
-
-                <div class="two-column-layout">
-                    <div class="campaign-content">
-                        <h2>Why This Matters</h2>
-                        <div class="campaign-description" id="detail-description"></div>
-
-                        <div class="share-section">
-                            <h3>Share This Campaign</h3>
-                            <div class="share-buttons">
-                                <button class="share-btn" onclick="shareOnTwitter()">
-                                    <span class="share-icon">🐦</span> Twitter
-                                </button>
-                                <button class="share-btn" onclick="shareOnFacebook()">
-                                    <span class="share-icon">📘</span> Facebook
-                                </button>
-                                <button class="share-btn" onclick="copyLink()">
-                                    <span class="share-icon">🔗</span> Copy Link
-                                </button>
+                <div class="campaign-detail-grid">
+                    <div class="campaign-main-content">
+                        <div class="campaign-header-new">
+                            <h1 class="campaign-title-new" id="detail-title"></h1>
+                            <div class="campaign-badges">
+                                <div class="campaign-category-badge" id="detail-category"></div>
+                                <div class="hot-badge" id="detail-hot-badge" style="display: none;">
+                                    <span>🔥</span> HOT CAMPAIGN
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="campaign-hero-image" id="detail-hero"></div>
+
+                        <div class="campaign-prose">
+                            <h2>Why This Matters</h2>
+                            <div id="detail-description"></div>
+
+                            <h2>Take Action</h2>
+                            <p>Contact your representatives now. It takes less than 2 minutes and your voice will be heard.</p>
                         </div>
                     </div>
 
-                    <div class="action-sidebar">
-                        <div class="action-card" id="action-card">
-                            <h2>Take Action Now</h2>
-                            <p>Contact your representatives in 2 minutes</p>
-
-                            <form id="action-form" onsubmit="takeAction(event)">
-                                <div class="form-group">
-                                    <label for="user-name">Your Name *</label>
-                                    <input type="text" id="user-name" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="user-email">Email *</label>
-                                    <input type="email" id="user-email" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="user-zip">ZIP Code *</label>
-                                    <input
-                                        type="text"
-                                        id="user-zip"
-                                        required
-                                        pattern="[0-9]{5}"
-                                        placeholder="12345">
-                                    <small>We'll find your representatives</small>
-                                </div>
-
-                                <div class="form-group" id="message-group" style="display: none;">
-                                    <label for="user-message">Your Message</label>
-                                    <textarea
-                                        id="user-message"
-                                        rows="8"
-                                        placeholder="Customize your message..."></textarea>
-                                    <small>Feel free to personalize this message</small>
-                                </div>
-
-                                <div id="reps-found" style="display: none;">
-                                    <div class="reps-list" id="reps-list"></div>
-                                </div>
-
-                                <button type="submit" class="btn-primary btn-block" id="action-btn">
-                                    Find My Representatives
-                                </button>
-                            </form>
-
-                            <div id="success-message" style="display: none;" class="success-message">
-                                <div class="success-icon">✓</div>
-                                <h3>Action Taken!</h3>
-                                <p>Your voice has been heard. Share this campaign to multiply your impact.</p>
-                                <button class="btn-primary btn-block" onclick="shareAfterAction()">
-                                    Share Campaign
-                                </button>
+                    <div class="campaign-sidebar-new">
+                        <div class="campaign-stats-card">
+                            <div class="stat-row">
+                                <div class="stat-label-new">Total Contacts</div>
+                                <div class="stat-value-new" id="detail-actions">0</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-label-new">Last 24 Hours</div>
+                                <div class="stat-value-new stat-value-hot" id="detail-recent">0</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-label-new">Shares</div>
+                                <div class="stat-value-new" id="detail-shares">0</div>
                             </div>
                         </div>
+
+                        <div class="campaign-action-buttons">
+                            <button class="btn-action-primary" onclick="startContactFlow()">
+                                <span class="btn-icon">✉️</span>
+                                Contact Representatives
+                            </button>
+                            <button class="btn-action-secondary" onclick="shareCurrentCampaign()">
+                                <span class="btn-icon">🔗</span>
+                                Share Campaign
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Modal -->
+        <div id="contact-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Contact Your Representatives</h2>
+                    <button class="modal-close" onclick="closeContactModal()">×</button>
+                </div>
+                <form id="action-form" onsubmit="takeAction(event)">
+                    <div class="form-group">
+                        <label for="user-name">Your Name *</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">Email *</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-zip">ZIP Code *</label>
+                        <input type="text" id="user-zip" required pattern="[0-9]{5}" placeholder="12345">
+                        <small>We'll find your representatives</small>
+                    </div>
+
+                    <div class="form-group" id="message-group" style="display: none;">
+                        <label for="user-message">Your Message</label>
+                        <textarea id="user-message" rows="8"></textarea>
+                        <small>Feel free to personalize this message</small>
+                    </div>
+
+                    <div id="reps-found" style="display: none;">
+                        <div class="reps-list" id="reps-list"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block" id="action-btn">
+                        Find My Representatives
+                    </button>
+                </form>
+
+                <div id="success-message" style="display: none;" class="success-message">
+                    <div class="success-icon">✓</div>
+                    <h3>Action Taken!</h3>
+                    <p>Your voice has been heard. Share this campaign to multiply your impact.</p>
+                    <button class="btn-primary btn-block" onclick="shareAfterAction()">
+                        Share Campaign
+                    </button>
                 </div>
             </div>
         </div>
@@ -306,7 +305,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Movement. Empowering civic engagement.</p>
+            <p>&copy; 2025 MassMove. Empowering civic engagement.</p>
             <p class="footer-note">Note: This is a demonstration platform. For production use, integrate with official representative contact systems.</p>
         </div>
     </footer>
